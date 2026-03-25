@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        video {
+            width: 100%;
+        }
+    </style>
+    <title>動態載入與播放器事件</title>
+</head>
+
+<body>
+    <video id="player"></video>
+    <div class="btns">
+        <!-- button*5#video$>{影片$} -->
+        <button id="video1" data-src="fulilan.mp4">影片1</button>
+        <button id="video2">影片2</button>
+        <button id="video3">影片3</button>
+        <button id="video4">影片4</button>
+        <button id="control">控制</button>
+    </div>
+
+    <script>
+        const player = document.querySelector("#player");
+        const btns = document.querySelector(".btns");
+
+        player.setAttribute("poster", "./images/universe1.png");
+
+        const playerListener = (e) => {
+            console.log(`${e.type} duration:${e.target.duration} currentTime:${e.target.currentTime} volume:${e.target.volume} muted:${e.target.muted} paused:${e.target.paused}`);
+
+        };
+
+        player.addEventListener("loadedmetadata", playerListener);
+        player.addEventListener("timeupdate", playerListener);
+        player.addEventListener("ended", playerListener);
+
+        btns.addEventListener("click", e => {
+            if (e.target.tagName == "DIV") return;
+            if (e.target.id == "control") {
+                player.paused ? player.play() : player.pause();
+                return;
+            };
+            player.src = `./videos/${e.target.id}.mp4`;
+            player.play();
+        });
+    </script>
+</body>
+
+</html>
