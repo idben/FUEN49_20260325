@@ -63,6 +63,7 @@
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
       }
+
       .explosion {
         position: absolute;
         left: 0;
@@ -76,13 +77,24 @@
       }
     }
 
-    @keyframes bulletAni{
-      0%{bottom: 10px;}
-      100%{bottom: 340px;}
+    @keyframes bulletAni {
+      0% {
+        bottom: 10px;
+      }
+
+      100% {
+        bottom: 340px;
+      }
     }
-    @keyframes enemyAni{
-      0%{top: 10px;}
-      100%{top: 360px;}
+
+    @keyframes enemyAni {
+      0% {
+        top: 10px;
+      }
+
+      100% {
+        top: 360px;
+      }
     }
 
     @keyframes bgiAni {
@@ -100,23 +112,73 @@
     }
 
     @keyframes explosion {
-      0% { background-position: -1px -1px; }
-      6.25% { background-position: -131px -1px; }
-      12.5% { background-position: -261px -1px; }
-      18.75% { background-position: -391px -1px; }
-      25% { background-position: -521px -1px; }
-      31.25% { background-position: -651px -1px; }
-      37.5% { background-position: -781px -1px; }
-      43.75% { background-position: -911px -1px; }
-      50% { background-position: -1041px -1px; }
-      56.25% { background-position: -1171px -1px; }
-      62.5% { background-position: -1301px -1px; }
-      68.75% { background-position: -1431px -1px; }
-      75% { background-position: -1561px -1px; }
-      81.25% { background-position: -1691px -1px; }
-      87.5% { background-position: -1821px -1px; }
-      93.75% { background-position: -1821px -1px; }
-      100% { background-position: -1821px -1px; }
+      0% {
+        background-position: -1px -1px;
+      }
+
+      6.25% {
+        background-position: -131px -1px;
+      }
+
+      12.5% {
+        background-position: -261px -1px;
+      }
+
+      18.75% {
+        background-position: -391px -1px;
+      }
+
+      25% {
+        background-position: -521px -1px;
+      }
+
+      31.25% {
+        background-position: -651px -1px;
+      }
+
+      37.5% {
+        background-position: -781px -1px;
+      }
+
+      43.75% {
+        background-position: -911px -1px;
+      }
+
+      50% {
+        background-position: -1041px -1px;
+      }
+
+      56.25% {
+        background-position: -1171px -1px;
+      }
+
+      62.5% {
+        background-position: -1301px -1px;
+      }
+
+      68.75% {
+        background-position: -1431px -1px;
+      }
+
+      75% {
+        background-position: -1561px -1px;
+      }
+
+      81.25% {
+        background-position: -1691px -1px;
+      }
+
+      87.5% {
+        background-position: -1821px -1px;
+      }
+
+      93.75% {
+        background-position: -1821px -1px;
+      }
+
+      100% {
+        background-position: -1821px -1px;
+      }
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -138,6 +200,10 @@
     let canShoot = true;
     let keysPressed = {};
     let planeEtimer;
+    const soundObj = {
+      shoot: "./sounds/shoot.mp3",
+      explo: "./sounds/explo.mp3"
+    };
 
     $(window).on("keydown", function (e) {
       keysPressed[e.which] = true;
@@ -175,6 +241,7 @@
             </div>`;
           $(".game").append(bt);
           $(".game .bullet" + bn).css("left", x + "px");
+          playSound("shoot");
           // $(".game .bullet" + bn).animate({
           //   bottom: "340px"
           // },{
@@ -210,9 +277,9 @@
           }, 120)
         }
       }
-      $(".bullet").each((index, elm)=>{
+      $(".bullet").each((index, elm) => {
         let $bullet = $(elm);
-        $(".planeE").each(function(index, elm) {
+        $(".planeE").each(function (index, elm) {
           let $enemy = $(elm);
           if (isOverLap($bullet, $enemy)) {
             let exx = $(this).css("left");
@@ -221,11 +288,12 @@
             $enemy.remove();
             explon++;
             $(".game").append(`<div class="explosion explosion${explon}"></div>`);
-            $(".explosion"+explon).css("left", exx);
-            $(".explosion"+explon).css("top", exy);
-            $(".explosion"+explon).on("animationend", function(){
+            $(".explosion" + explon).css("left", exx);
+            $(".explosion" + explon).css("top", exy);
+            $(".explosion" + explon).on("animationend", function () {
               $(this).remove();
             })
+            playSound("explo");
             score++;
           }
         });
@@ -233,8 +301,8 @@
       requestAnimationFrame(gameLoop);
     }
 
-    $(".game").on("animationend",(e)=>{
-      if($(e.target).hasClass("planeE") || $(e.target).hasClass("bullet")){
+    $(".game").on("animationend", (e) => {
+      if ($(e.target).hasClass("planeE") || $(e.target).hasClass("bullet")) {
         $(e.target).remove();
       }
     });
@@ -263,7 +331,7 @@
       // })
     }
 
-    function isOverLap($div1, $div2){
+    function isOverLap($div1, $div2) {
       let x1 = $div1.offset().left;
       let y1 = $div1.offset().top;
       let w1 = $div1.outerWidth();
@@ -275,13 +343,21 @@
       let h2 = $div2.outerHeight();
 
       if (x1 < x2 + w2 &&
-          x1 + w1 > x2 &&
-          y1 < y2 + h2 &&
-          y1 + h1 > y2) {
-          return true;
+        x1 + w1 > x2 &&
+        y1 < y2 + h2 &&
+        y1 + h1 > y2) {
+        return true;
       } else {
         return false;
       }
+    }
+
+    function playSound(key) {
+      const sound = new Audio(soundObj[key]);
+      sound.addEventListener("ended", e => {
+        e.target = null;
+      });
+      sound.play();
     }
   </script>
 </body>
