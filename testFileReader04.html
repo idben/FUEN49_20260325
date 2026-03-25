@@ -50,8 +50,9 @@
         .myLabel2 {
             display: block;
             display: flex;
-            border: 2px solid #1bd902;
+            border: 1px solid #1bd902;
             border-radius: 5px;
+            margin-bottom: 2px;
 
 
             div {
@@ -80,19 +81,21 @@
         </label>
         <input type="file" name="myFile" id="myFile" accept="image/*">
     </div>
-    <div>
+    <button class="btn-add">加一個圖片欄位 + </button>
+    <div class="container">
         <label class="myLabel2">
             <div>請選擇檔案...</div>
             <div>選擇檔案</div>
             <input type="file" id="myFile2">
         </label>
-
     </div>
 
 
     <script>
         const myFile = document.querySelector("#myFile");
-        const myFile2 = document.querySelector("#myFile2");
+        const myFile2s = document.querySelectorAll(".myLabel2 input");
+        const btnAdd = document.querySelector(".btn-add");
+        const container = document.querySelector(".container");
 
         myFile.addEventListener("change", e => {
             const file = e.target.files[0];
@@ -109,12 +112,24 @@
             reader.readAsDataURL(file);
         });
 
-        myFile2.addEventListener("change", e => {
-            const file = e.target.files[0];
-            console.log(file.name);
-            console.log(e.target.closest(".myLabel2").querySelectorAll("div")[0]);
-            e.target.closest(".myLabel2").querySelectorAll("div")[0].innerText = file.name;
+        myFile2s.forEach(myFile2 => {
+            myFile2.addEventListener("change", e => {
+                const file = e.target.files[0];
+                console.log(file.name);
+                console.log(e.target.closest(".myLabel2").querySelectorAll("div")[0]);
+                e.target.closest(".myLabel2").querySelectorAll("div")[0].innerText = file.name
+            });
         });
+
+        btnAdd.addEventListener("click", () => {
+            container.innerHTML += `<label class="myLabel2">
+                                        <div>請選擇檔案...</div>
+                                        <div>選擇檔案</div>
+                                        <input type="file" id="myFile2">
+                                    </label>`;
+        });
+
+
     </script>
 </body>
 
