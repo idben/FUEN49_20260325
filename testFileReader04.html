@@ -46,19 +46,53 @@
                 align-items: center;
             }
         }
+
+        .myLabel2 {
+            display: block;
+            display: flex;
+            border: 2px solid #1bd902;
+            border-radius: 5px;
+
+
+            div {
+                &:nth-child(1) {
+                    flex: 1;
+                }
+
+                &:nth-child(2) {
+                    width: 100px;
+                    background-color: #1bd902;
+                    cursor: pointer;
+                    user-select: none;
+                    text-align: center;
+                }
+            }
+        }
     </style>
     <title>客製化 flie input</title>
 </head>
 
 <body>
-    <label class="myLabel" for="myFile">
-        <div class="img"></div>
-        <i class="fa-solid fa-folder-plus icon"></i>
-    </label>
-    <input type="file" name="myFile" id="myFile" accept="image/*">
+    <div>
+        <label class="myLabel" for="myFile">
+            <div class="img"></div>
+            <i class="fa-solid fa-folder-plus icon"></i>
+        </label>
+        <input type="file" name="myFile" id="myFile" accept="image/*">
+    </div>
+    <div>
+        <label class="myLabel2">
+            <div>請選擇檔案...</div>
+            <div>選擇檔案</div>
+            <input type="file" id="myFile2">
+        </label>
+
+    </div>
+
 
     <script>
-        const myFile = document.querySelector("#myFile");;
+        const myFile = document.querySelector("#myFile");
+        const myFile2 = document.querySelector("#myFile2");
 
         myFile.addEventListener("change", e => {
             const file = e.target.files[0];
@@ -73,6 +107,13 @@
             });
 
             reader.readAsDataURL(file);
+        });
+
+        myFile2.addEventListener("change", e => {
+            const file = e.target.files[0];
+            console.log(file.name);
+            console.log(e.target.closest(".myLabel2").querySelectorAll("div")[0]);
+            e.target.closest(".myLabel2").querySelectorAll("div")[0].innerText = file.name;
         });
     </script>
 </body>
