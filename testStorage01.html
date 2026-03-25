@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage 的方法與屬性</title>
+</head>
+
+<body>
+
+    <script>
+        // localStorage.setItem()
+        // sessionStorage.setItem()
+
+        const storage = localStorage; // sessionStorage
+        storage.setItem("username", "Ben Chen");
+        storage.setItem("email", "ben@ben.com");
+        storage.setItem("password", "a12345");
+        // console.log(storage.getItem("username"));
+        // storage.removeItem("username");
+        // storage.clear();
+        // console.log(storage.getItem("username"));
+
+        console.log(storage.key(2));
+        console.log(storage.length);
+
+        for (let i = 0; i < storage.length; i++) {
+            console.log(`${storage.key(i)} = ${storage.getItem(storage.key(i))}`);
+        }
+
+
+
+    </script>
+</body>
+
+</html>
