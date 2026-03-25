@@ -8,6 +8,40 @@
         video {
             width: 100%;
         }
+
+        .img {
+            position: fixed;
+            right: 0;
+            bottom: -300px;
+            transform: rotate(-20deg);
+            transform-origin: center bottom;
+
+
+            img {
+                width: 150px;
+            }
+
+            &.active {
+                bottom: 0;
+                animation-name: handAni;
+                animation-duration: 0.4s;
+                animation-iteration-count: 3;
+            }
+        }
+
+        @keyframes handAni {
+            0% {
+                transform: rotate(-20deg);
+            }
+
+            50% {
+                transform: rotate(20deg);
+            }
+
+            100% {
+                transform: rotate(-20deg);
+            }
+        }
     </style>
     <title>動態載入與播放器事件</title>
 </head>
@@ -21,6 +55,9 @@
         <button id="video3">影片3</button>
         <button id="video4">影片4</button>
         <button id="control">控制</button>
+    </div>
+    <div class="img">
+        <img src="./images/hand1.svg" alt="">
     </div>
 
     <script>
