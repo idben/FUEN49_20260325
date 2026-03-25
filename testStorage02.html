@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* * {
+            box-sizing: border-box;
+        } */
+
+    #myInput {
+      font-size: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .todo {
+      display: flex;
+      font-size: 24px;
+
+      input {
+        width: 20px;
+      }
+
+      label {
+        user-select: none;
+        display: inline-block;
+        flex: 1;
+      }
+
+      &:hover {
+        background-color: #dedede;
+      }
+    }
+  </style>
+  <title>待辦事項</title>
+</head>
+
+<body>
+  <input id="myInput" type="text" placeholder="輸入待辦事項" autofocus>
+  <div class="todolist">
+    <div class="todo">
+      <input id="todo1" type="checkbox">
+      <label for="todo1">買爭鮮</label>
+    </div>
+  </div>
+
+  <script>
+    let todoAry = [];
+    const myInput = document.querySelector("#myInput");
+
+    myInput.addEventListener("keyup", e => {
+      if (e.key === "Enter" && e.ctrlKey == true) {
+        const text = e.target.value;
+        const time = new Date().getTime();
+        const checked = false;
+
+
+      }
+
+    });
+
+  </script>
+</body>
+
+</html>
