@@ -33,6 +33,13 @@
             btn.disabled = true;
         });
 
+        player.addEventListener("ended", () => {
+            playNum++;
+            if (playNum >= playList.length) playNum = 0;
+            player.src = playList[playNum];
+            player.play();
+        });
+
     </script>
 </body>
 
