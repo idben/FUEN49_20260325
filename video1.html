@@ -4,11 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        video {
+            width: 100%;
+        }
+    </style>
     <title>基本嵌入</title>
 </head>
 
 <body>
-
+    <video src1="./videos/video1.mp4" controls autoplay1 muted loop controlslist="nodownload nofullscreen"
+        disablepictureinpicture poster="./images/universe1.png">
+        <source src="./videos/video11.mp4">
+        <source src="./videos/video2.mp4">
+        <p>不支援影片播放</p>
+    </video>
 </body>
 
 </html>
