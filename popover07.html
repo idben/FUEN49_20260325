@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            anchor-name: --dropdown;
+        }
+
+        [popover] {
+            position-anchor: --dropdown;
+            position-area: bottom span-right;
+            border: 0px;
+            width: 200px;
+            height: 240px;
+            background-color: #f8baba;
+        }
+    </style>
+    <title>popover 07 下拉式選單</title>
+</head>
+
+<body>
+    <button popovertarget="pop1">開啟popover</button>
+    <div id="pop1" popover>
+        這是下拉式選單
+    </div>
+</body>
+
+</html>

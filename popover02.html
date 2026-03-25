@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        [popover] {
+            border: 0px;
+            padding: 10px;
+            background-color: #f8baba;
+            margin: auto;
+
+            &::backdrop {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+        }
+    </style>
+    <title>popover 02</title>
+</head>
+
+<body>
+    <button popovertarget="pop1">開啟popover</button>
+    <div id="pop1" popover>
+        這是彈出的內容
+    </div>
+</body>
+
+</html>
