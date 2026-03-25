@@ -31,7 +31,6 @@
 
         const playerListener = (e) => {
             console.log(`${e.type} duration:${e.target.duration} currentTime:${e.target.currentTime} volume:${e.target.volume} muted:${e.target.muted} paused:${e.target.paused}`);
-
         };
 
         player.addEventListener("loadedmetadata", playerListener);
