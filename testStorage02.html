@@ -40,26 +40,44 @@
 <body>
   <input id="myInput" type="text" placeholder="輸入待辦事項" autofocus>
   <div class="todolist">
-    <div class="todo">
+    <!-- <div class="todo">
       <input id="todo1" type="checkbox">
       <label for="todo1">買爭鮮</label>
-    </div>
+    </div> -->
   </div>
 
   <script>
-    let todoAry = [];
+    let todoAry;
     const myInput = document.querySelector("#myInput");
+    const todolist = document.querySelector(".todolist");
+
+    if (localStorage.getItem("todo")) {
+      todoAry = JSON.parse(localStorage.getItem("todo"));
+      todoAry.forEach(todo => setItem(todo));
+    } else {
+      todoAry = [];
+    }
 
     myInput.addEventListener("keyup", e => {
       if (e.key === "Enter" && e.ctrlKey == true) {
         const text = e.target.value;
-        const time = new Date().getTime();
+        const time = "t" + new Date().getTime();
         const checked = false;
-
-
+        const temObj = { time, text, checked };
+        todoAry.push(temObj);
+        localStorage.setItem("todo", JSON.stringify(todoAry));
+        setItem(temObj);
+        e.target.value = "";
       }
-
     });
+
+
+    function setItem(obj) {
+      todolist.innerHTML += `<div class="todo">
+                                <input id="${obj.time}" type="checkbox" ${obj.checked == true ? "checked" : ""}>
+                                <label for="${obj.time}">${obj.text}</label>
+                              </div>`;
+    }
 
   </script>
 </body>
