@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用 audio 物件</title>
+</head>
+
+<body>
+
+    <script>
+        const soundObj = {
+            shoot: "./sounds/shoot.mp3",
+            explo: "./sounds/explo.mp3"
+        };
+
+        window.addEventListener("keyup", e => {
+            if (e.key == " ") return playSound("shoot");
+            if (e.key == "Enter") return playSound("explo")
+        });
+
+        function playSound(key) {
+            const sound = new Audio(soundObj[key]);
+            sound.addEventListener("ended", e => {
+                e.target = null;
+            });
+            sound.play();
+        }
+    </script>
+</body>
+
+</html>
