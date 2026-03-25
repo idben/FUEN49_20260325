@@ -51,12 +51,34 @@
     const myInput = document.querySelector("#myInput");
     const todolist = document.querySelector(".todolist");
 
+
+
     if (localStorage.getItem("todo")) {
       todoAry = JSON.parse(localStorage.getItem("todo"));
       todoAry.forEach(todo => setItem(todo));
     } else {
       todoAry = [];
     }
+
+    // 對已經存在的 input 欄位有作用, 對新增的就沒作用了
+    // const inputs = document.querySelectorAll("input[type=checkbox]");
+    // console.log(inputs);
+
+    // inputs.forEach(input => {
+    //   input.addEventListener("change", () => {
+    //     console.log("QQQ");
+    //   });
+    // });
+
+    // 事件代理: 利用事件向上傳遞的特性, 
+    // 在最上層容器做監測, 底層相同事件的觸發就抓得到
+    todolist.addEventListener("change", e => {
+      console.log(e.target.id);
+      console.log(e.target.checked);
+      todoAry.find(todo => todo.time == e.target.id).checked = e.target.checked;
+
+      localStorage.setItem("todo", JSON.stringify(todoAry));
+    });
 
     myInput.addEventListener("keyup", e => {
       if (e.key === "Enter" && e.ctrlKey == true) {
