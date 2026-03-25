@@ -15,6 +15,7 @@
             bottom: -300px;
             transform: rotate(-20deg);
             transform-origin: center bottom;
+            transition: bottom 0.2s;
 
 
             img {
@@ -63,16 +64,30 @@
     <script>
         const player = document.querySelector("#player");
         const btns = document.querySelector(".btns");
+        const img = document.querySelector(".img");
+        let checked1 = false;
 
         player.setAttribute("poster", "./images/universe1.png");
 
         const playerListener = (e) => {
             console.log(`${e.type} duration:${e.target.duration} currentTime:${e.target.currentTime} volume:${e.target.volume} muted:${e.target.muted} paused:${e.target.paused}`);
+
+            if (e.type == "timeupdate") {
+                if (checked1) return;
+                if (e.target.currentTime >= 5) {
+                    checked1 = true;
+                    img.classList.add("active");
+                }
+            }
         };
 
         player.addEventListener("loadedmetadata", playerListener);
         player.addEventListener("timeupdate", playerListener);
         player.addEventListener("ended", playerListener);
+
+        img.addEventListener("animationend", e => {
+            e.target.classList.remove("active");
+        });
 
         btns.addEventListener("click", e => {
             if (e.target.tagName == "DIV") return;
